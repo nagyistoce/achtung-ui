@@ -1,0 +1,6 @@
+#summary Features planned for future releases
+
+  * Add a `delayOpen` option to delay opening by specified time
+  * Add ability to specify times as integers or formatted strings (e.g., '10s' or '1m')
+  * Clean up demo page
+  * Add alternate positioning options (top center of screen, bottom left of screen, etc.)
