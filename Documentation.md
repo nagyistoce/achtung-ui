@@ -1,0 +1,79 @@
+# Documentation for achtung 0.3.0 #
+
+## Initializing ##
+
+There are two ways to initialize an achtung notification or set of notifications.
+
+```
+// Use an existing element
+$('div.someSelector').achtung({/* .. options */});
+
+// Or let achtung create an element for you
+var foo = $.achtung({/* .. options */});
+
+// Which is equivalent to:
+var foo = $('<div />').achtung({/* .. options */});
+```
+
+## Options ##
+
+| **Option** | **Default** | **Description** |
+|:-----------|:------------|:----------------|
+| timeout | `10` | (int) Number of seconds notification should stay on screen |
+| disableClose | `false` | (bool) Disable close button |
+| icon | `false` | (bool|string) Class name for icon to show to left of message (e.g., "ui-icon-check") |
+| className | `""` | (string) Additional CSS class name to add to notification element |
+| animateClassSwitch | `false` | (bool) Whether to animate class changes when _update_ is called (requires jQuery UI, unsupported on Safari/Webkit) |
+| showEffects | `{opacity:toggle,height:toggle`} | (object) Options passed to $.animate() on display of notification |
+| hideEffects | `{opacity:toggle,height:toggle`} | (object) Options passed to $.animate() on hiding of notification |
+| showEffectsDuration | `500` | (int) Duration of showEffects (ms) |
+| hideEffectsDuration | `700` | (int) Duration of hideEffects (ms) |
+
+Defaults are stored in `$.achtung.defaults` and can be changed to affect future notifications.
+
+```
+// Make sticky notifications the default
+$.achtung.defaults.timeout = 0;
+```
+
+## Methods ##
+
+Methods are called similarly to widgets in the jQuery UI framework.
+
+```
+$(/*..selector*/).achtung('update', {/*..options*/});
+$(/*..selector*/).achtung('close');
+
+/* Or.. */
+
+foo.achtung('update', {/*..options*/});
+foo.achtung('close');
+```
+
+| **Method** | **Parameters** | **Description** |
+|:-----------|:---------------|:----------------|
+| close |  | Close the notification (this is currently permanent) |
+| update | `(object) options` | Update the notification with new options |
+| changeIcon | `(string) newMessageClassName` | Change the notification's icon |
+| changeMessage | `(string) newMessageText` | Change the notification's message text |
+| changeClass | `(string) className` | Change the notification's CSS class |
+| timeout | `(int) timeout` | Change the notification's timeout (or make sticky if timeout is 0) |
+
+
+## Quick Example ##
+```
+// Create a new notification (5 second timeout)
+$.achtung({message: 'Hello!', timeout:5});
+
+// Create a new sticky notification, save as foo
+foo = $.achtung({message: 'This will stay on-screen.', timeout: 0});
+
+// Update with new message
+foo.achtung('update', {message: 'Updated message!'});
+
+// Close foo
+foo.achtung('close');
+
+// Remove all notifications
+$('.achtung').achtung('close');
+```
